@@ -111,4 +111,12 @@ public class MainActivity extends AppCompatActivity {
         setTitle("New Order");
         mMenu.clear();
     }
+
+    public void makeConfirmFragment(View view) {
+        mFragment = new ConfirmFragment();
+        swapFragment("CONFIRM");
+
+        setTitle("Confirm Order");
+        mMenu.clear();
+    }
 }

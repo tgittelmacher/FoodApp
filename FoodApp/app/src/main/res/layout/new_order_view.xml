@@ -51,7 +51,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/order_confirm"
         android:layout_alignParentBottom="true"
-        android:text="Confirm"/>
+        android:text="Next"
+        android:onClick="makeConfirmFragment"/>
 
     <Button
         android:layout_width="wrap_content"
