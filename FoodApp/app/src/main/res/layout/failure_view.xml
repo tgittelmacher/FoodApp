@@ -13,38 +13,30 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/num_order_final"
-        android:text="Number of Orders: 1"
-        android:layout_marginTop="20dp"/>
+        android:id="@+id/oops"
+        android:text="Oops... Something went wrong"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/abc_text_size_large_material"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Amount: $12.94"
-        android:id="@+id/order_amount"
-        android:layout_below="@id/num_order_final"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/credit_card_hint"
-        android:text="Credit Card #: XXXX-XXXX-XXXX-1234"
-        android:layout_below="@id/order_amount"/>
+        android:text="Please check your address, credit card number, Internet and Location service, and make sure there are restaurants near you"
+        android:id="@+id/fail_message"
+        android:layout_below="@id/oops"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/place_order"
+        android:id="@+id/fail_home"
         android:layout_alignParentBottom="true"
-        android:text="Place Order"
-        android:onClick="makeFailureFragment"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/place_order_cancel"
-        android:layout_alignParentBottom="true"
-        android:text="Cancel"
-        android:onClick="makeNewOrderFragment"
-        android:layout_toRightOf="@id/place_order"/>
+        android:text="Home"
+        android:onClick="makeMainScreenFragment"
+        android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>

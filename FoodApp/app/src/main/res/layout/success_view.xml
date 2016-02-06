@@ -13,38 +13,29 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/num_order_final"
-        android:text="Number of Orders: 1"
-        android:layout_marginTop="20dp"/>
+        android:id="@+id/thank_you"
+        android:text="Thank You"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/abc_text_size_large_material"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Amount: $12.94"
-        android:id="@+id/order_amount"
-        android:layout_below="@id/num_order_final"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/credit_card_hint"
-        android:text="Credit Card #: XXXX-XXXX-XXXX-1234"
-        android:layout_below="@id/order_amount"/>
+        android:text="Your order has been placed"
+        android:id="@+id/your_order_placed"
+        android:layout_below="@id/thank_you"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_centerHorizontal="true"/>
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/place_order"
+        android:id="@+id/back_home"
         android:layout_alignParentBottom="true"
-        android:text="Place Order"
-        android:onClick="makeFailureFragment"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/place_order_cancel"
-        android:layout_alignParentBottom="true"
-        android:text="Cancel"
-        android:onClick="makeNewOrderFragment"
-        android:layout_toRightOf="@id/place_order"/>
+        android:text="Home"
+        android:onClick="makeMainScreenFragment"
+        android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>

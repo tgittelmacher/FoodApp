@@ -119,4 +119,20 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Confirm Order");
         mMenu.clear();
     }
+
+    public void makeSuccessFragment(View view) {
+        mFragment = new SuccessFragment();
+        swapFragment("SUCCESS");
+
+        setTitle("FoodApp");
+        mMenu.clear();
+    }
+
+    public void makeFailureFragment(View view) {
+        mFragment = new FailureFragment();
+        swapFragment("FAILURE");
+
+        setTitle("FoodApp");
+        mMenu.clear();
+    }
 }

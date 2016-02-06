@@ -12,8 +12,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to the App"
-        android:id="@+id/welcome"/>
+        android:text="Welcome to Grub Runner"
+        android:id="@+id/welcome"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/abc_text_size_large_material"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -22,6 +24,8 @@
         android:text="New Order"
         android:layout_below="@id/welcome"
         android:onClick="makeNewOrderFragment"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         />
 
 </RelativeLayout>
