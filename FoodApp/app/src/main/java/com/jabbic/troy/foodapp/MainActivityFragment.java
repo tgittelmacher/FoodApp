@@ -12,6 +12,9 @@ import android.widget.Toast;
  */
 public class MainActivityFragment extends Fragment {
 
+    /*
+    ALL THE FRAGMENTS MAY NOT HAVE MUCH GOING ON IN THEM. THAT'S OKAY.
+     */
     public MainActivityFragment() {
     }
 
@@ -27,16 +30,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     /*
-    MAIN FRAGMENT EVENT HANDLERS, ETC. BELOW
+    MAIN FRAGMENT EVENT HANDLERS, ETC. BELOW. MAY NOT NEED
      */
 
-    public void onOrderClick(View view) {
-        //Example hook for a UI event.
-        //Ie, for a button's "onClick" attribute, add "onOrderClick" to
-        //call this method.
-
-        //Below line of code just makes a "Toast" message pop up momentarily on the screen
-        Toast.makeText(getActivity().getBaseContext(),
-                "You clicked me!", Toast.LENGTH_SHORT).show();
-    }
 }

@@ -32,6 +32,10 @@ public class NewOrderFragment extends Fragment {
     public void onViewCreated(View view, Bundle sharedInstanceState) {
         super.onViewCreated(view, sharedInstanceState);
 
+
+        /*
+        THIS NEXT SUPER UGLY BLOCK OF CODE CONFIGURES PRICE RANGE SEEK BAR... IGNORE
+         */
         final TextView priceRangeTextView = (TextView) view.findViewById(R.id.price_range_title);
         SeekBar priceRangeSeekBar = (SeekBar) view.findViewById(R.id.price_range);
         priceRangeTextView.setText("Price range per order: $" + priceRangeSeekBar.getProgress());
@@ -52,6 +56,9 @@ public class NewOrderFragment extends Fragment {
             }
         });
 
+        /*
+        THIS NEXT SUPER UGLY BLOCK OF CODE CONFIGURES NUMBER OF ORDERS SEEK BAR... ALSO IGNORE
+         */
         final TextView numOrdersTextView = (TextView) view.findViewById(R.id.number_of_people_title);
         SeekBar numOrdersSeekBar = (SeekBar) view.findViewById(R.id.number_of_people);
         numOrdersTextView.setText("Number of Orders: " + numOrdersSeekBar.getProgress());

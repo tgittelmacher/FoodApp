@@ -21,27 +21,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //SET MAIN ACTIVITY VIEW
         setContentView(R.layout.activity_main);
+
+        //CONFIGURE TOOLBAR
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mFragment = new MainScreenFragment();
+        //CREATE DEFAULT FRAGMENT. LATER CAN BE CHANGED TO SPLASH SCREEN.
+        mFragment = new MainScreenFragment();   //note: Android naming convention for class variables is "m" + its name.
 
+        //TELL MAIN ACTIVITY TO SHOW mFRAGMENT
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, mFragment, "MAIN")
                     .commit();
         }
-
-        //DEFAULT ANDROID STUDIO STUFF
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override
@@ -69,26 +65,42 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     private void swapFragment(String tag) {
+    /*
+    CALL THIS FUNCTION FROM AN ONCLICK LISTENER AFTER CONFIGURING mFRAGMENT. SEE BELOW EXAMPLES
+     */
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.container, mFragment, tag).addToBackStack(null).commit();
     }
 
+
     public void makeMainScreenFragment(View view) {
+    /*
+    SETS CURRENT DISPLAYED FRAGMENT TO MAIN SCREEN
+     */
         mFragment = new MainScreenFragment();
+
+        //BE SURE TO ADD TAG... DOESNT DO ANYTHING YET, BUT WILL
         swapFragment("MAINSCREEN");
 
+        //TITLE THAT SHOWS UP ON TOOLBAR
         setTitle("FoodApp");
+
+        //ADDS PREVIOUSLY DELETED SETTINGS DROPDOWN
         mMenu.add("Settings");
 
     }
 
 
     public void makeSettingsFragment(View view) {
+        //SEE MAIN FRAGMENT EXAMPLE
         mFragment = new SettingsFragment();
         swapFragment("SETTINGS");
 
         setTitle("Settings");
+
+        //WHY WOULD WE WANT TO ACCESS SETTINGS FROM SETTINGS?
         mMenu.clear();
     }
 
@@ -98,5 +110,5 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("New Order");
         mMenu.clear();
+    }
 }
-        }
