@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/expiration_month"
-                android:inputType=""
+                android:inputType="text"
                 android:hint="Expiration month (MM)"
                 android:layout_marginTop="20dp"/>
 
@@ -96,6 +96,7 @@
         android:text="Save"
         android:id="@+id/settings_save"
         android:layout_below="@id/ScrollView01"
+        android:onClick="SaveInfo"
         />
 
     <Button
