@@ -14,6 +14,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     public Fragment mFragment;
+    public Menu mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        if (mMenu == null)
+            mMenu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -56,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings || item.getTitle().equals("Settings")) {
+            makeSettingsFragment(null);
             return true;
         }
 
@@ -68,9 +72,21 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.container, mFragment, tag).addToBackStack(null).commit();
     }
 
+    public void makeMainScreenFragment(View view) {
+        mFragment = new MainScreenFragment();
+        swapFragment("MAINSCREEN");
+
+        setTitle("FoodApp");
+        mMenu.add("Settings");
+
+    }
+
 
     public void makeSettingsFragment(View view) {
         mFragment = new SettingsFragment();
         swapFragment("SETTINGS");
+
+        setTitle("Settings");
+        mMenu.clear();
     }
 }

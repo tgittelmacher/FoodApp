@@ -21,6 +21,8 @@ public class MainScreenFragment extends Fragment {
 
         super.onCreateView( inflater, container, savedInstanceState );
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+//        View settings = getActivity().findViewById(R.id.actionbar_menu);
+//        settings.setVisibility(View.VISIBLE);
 
         return rootView;
     }
