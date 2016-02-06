@@ -10,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,4 +91,12 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Settings");
         mMenu.clear();
     }
+
+    public void makeNewOrderFragment(View view) {
+        mFragment = new NewOrderFragment();
+        swapFragment("NEWORDER");
+
+        setTitle("New Order");
+        mMenu.clear();
 }
+        }

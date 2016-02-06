@@ -35,4 +35,5 @@
         android:layout_toRightOf="@id/settings_save"
         android:onClick="makeMainScreenFragment"
         />
+
 </RelativeLayout>

@@ -12,15 +12,16 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/hello_world"/>
+        android:text="Welcome to the App"
+        android:id="@+id/welcome"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Here is a button!"
-        android:layout_below="@id/hello_world"
-        android:onClick="makeSettingsFragment"
+        android:id="@+id/new_order"
+        android:text="New Order"
+        android:layout_below="@id/welcome"
+        android:onClick="makeNewOrderFragment"
         />
 
 </RelativeLayout>
