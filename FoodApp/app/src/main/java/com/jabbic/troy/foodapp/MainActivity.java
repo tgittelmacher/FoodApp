@@ -2,7 +2,10 @@ package com.jabbic.troy.foodapp;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -97,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         //SEE MAIN FRAGMENT EXAMPLE
         mFragment = new SettingsFragment();
         swapFragment("SETTINGS");
-
         setTitle("Settings");
 
         //WHY WOULD WE WANT TO ACCESS SETTINGS FROM SETTINGS?
@@ -128,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
         mMenu.clear();
     }
 
+
+
     public void makeFailureFragment(View view) {
         mFragment = new FailureFragment();
         swapFragment("FAILURE");
@@ -135,4 +141,51 @@ public class MainActivity extends AppCompatActivity {
         setTitle("FoodApp");
         mMenu.clear();
     }
+
+    EditText cardHolderNameIn;
+    EditText cardNumberIn, cardSecNumberIn;
+    EditText cardExpMonthIn, cardExpYearIn;
+    EditText billAddressIn, deliAddressIn;
+
+    public void SaveInfo(View view){
+        SharedPreferences sharedPref = getSharedPreferences("customerInfo", Context.MODE_PRIVATE);
+
+
+
+        cardHolderNameIn = (EditText) findViewById(R.id.name_field);
+        String name = cardHolderNameIn.getText().toString();
+
+        cardNumberIn = (EditText) findViewById(R.id.cc_number_field);
+        String number = cardNumberIn.getText().toString();
+
+        cardSecNumberIn = (EditText) findViewById(R.id.card_security_num);
+        String secnumber = cardSecNumberIn.getText().toString();
+
+        cardExpMonthIn = (EditText) findViewById(R.id.expiration_month);
+        String expmon = cardExpMonthIn.getText().toString();
+
+        cardExpYearIn = (EditText) findViewById(R.id.expiration_year);
+        String expyear = cardExpYearIn.getText().toString();
+
+        billAddressIn = (EditText) findViewById(R.id.billing_address);
+        String billadd = billAddressIn.getText().toString();
+
+        deliAddressIn = (EditText) findViewById(R.id.delivery_address);
+        String deliadd = deliAddressIn.getText().toString();
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("cardHolderName", name);
+        editor.putString("cardNumber", number);
+        editor.putString("cardSecNumber", secnumber);
+        editor.putString("cardExpMonth", expmon);
+        editor.putString("cardExpYear", expyear);
+        editor.putString("billAddress", billadd);
+        editor.putString("deliAddress", deliadd);
+        editor.commit();
+
+        Toast.makeText(MainActivity.this, "Settings Saved.", Toast.LENGTH_SHORT).show();
+        makeMainScreenFragment(null);
+
+    }
+
 }
