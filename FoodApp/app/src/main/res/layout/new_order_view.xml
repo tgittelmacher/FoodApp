@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/price_range_title"
             android:textSize="@dimen/abc_text_size_large_material"
-            android:text="Max price per order: $"/>
+            android:text="Max price per order: $5"/>
         <SeekBar
             android:id="@+id/price_range"
             android:max="50"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/number_of_people_title"
             android:textSize="@dimen/abc_text_size_large_material"
-            android:text="Number of Orders: "
+            android:text="Number of Orders: 1"
             android:layout_below="@id/price_range"
             android:layout_marginTop="20dp"/>
         <SeekBar

@@ -2,6 +2,8 @@ package com.jabbic.troy.foodapp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,11 +40,13 @@ public class NewOrderFragment extends Fragment {
          */
         final TextView priceRangeTextView = (TextView) view.findViewById(R.id.price_range_title);
         SeekBar priceRangeSeekBar = (SeekBar) view.findViewById(R.id.price_range);
-        priceRangeTextView.setText("Price range per order: $" + priceRangeSeekBar.getProgress());
+        priceRangeTextView.setText("Price range per order: $" + (priceRangeSeekBar.getProgress() + 5));
         priceRangeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                priceRangeTextView.setText("Price range per order: $" + String.valueOf(progress));
+                priceRangeTextView.setText("Price range per order: $" + String.valueOf(progress + 5));
+
+
             }
 
             @Override
@@ -61,11 +65,11 @@ public class NewOrderFragment extends Fragment {
          */
         final TextView numOrdersTextView = (TextView) view.findViewById(R.id.number_of_people_title);
         SeekBar numOrdersSeekBar = (SeekBar) view.findViewById(R.id.number_of_people);
-        numOrdersTextView.setText("Number of Orders: " + numOrdersSeekBar.getProgress());
+        numOrdersTextView.setText("Number of Orders: " + (numOrdersSeekBar.getProgress() + 1));
         numOrdersSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                numOrdersTextView.setText("Number of Orders: " + String.valueOf(progress));
+                numOrdersTextView.setText("Number of Orders: " + String.valueOf(progress + 1));
             }
 
             @Override
@@ -78,6 +82,15 @@ public class NewOrderFragment extends Fragment {
 
             }
         });
+        SharedPreferences sharedPref = getActivity().getSharedPreferences("orderDetails", Context.MODE_PRIVATE);
 
+        SharedPreferences.Editor editor = sharedPref.edit();
+        SeekBar priceBar = (SeekBar)getActivity().findViewById(R.id.price_range);
+        SeekBar peopleBar = (SeekBar)getActivity().findViewById(R.id.number_of_people);
+
+        editor.putInt("Price", priceBar.getProgress());
+        editor.putInt("People", peopleBar.getProgress() + 1);
+
+        editor.commit();
     }
 }

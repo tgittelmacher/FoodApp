@@ -24,6 +24,7 @@ public class MainScreenFragment extends Fragment {
 //        View settings = getActivity().findViewById(R.id.actionbar_menu);
 //        settings.setVisibility(View.VISIBLE);
 
+
         return rootView;
     }
 }
