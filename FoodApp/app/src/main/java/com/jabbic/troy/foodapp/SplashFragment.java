@@ -19,18 +19,7 @@ public class SplashFragment extends Fragment {
 
         super.onCreateView( inflater, container, savedInstanceState );
         View rootView = inflater.inflate(R.layout.splash_view, container, false);
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                ((MainActivity)MainActivity.getInstance()).makeMainScreenFragment(null);
-            }
-        }).start();
+        ((MainActivity)(MainActivity.getInstance())).getSupportActionBar().hide();
 
         return rootView;
     }

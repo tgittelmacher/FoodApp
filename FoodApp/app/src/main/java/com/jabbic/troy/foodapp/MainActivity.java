@@ -22,10 +22,17 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.jabbic.troy.foodapp.utilities.BullshitException;
 import com.jabbic.troy.foodapp.utilities.DeliveryHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public RequestQueue mQueue;
     public static Activity mActivity;
     public JSONObject mObject;
+    public String mMerchant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +55,25 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //CREATE DEFAULT FRAGMENT. LATER CAN BE CHANGED TO SPLASH SCREEN.
-        mFragment = new MainScreenFragment();   //note: Android naming convention for class variables is "m" + its name.
+        mFragment = new SplashFragment();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        makeMainScreenFragment(null);
+                    }
+                });
+
+            }
+        }).start();//note: Android naming convention for class variables is "m" + its name.
 
         //TELL MAIN ACTIVITY TO SHOW mFRAGMENT
         if (savedInstanceState == null) {
@@ -221,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (keyCode == 1) {
            //CREDIT CARD PAYMENT
-            helper.makeTransaction();
+            helper.getMenu();
         }
         else
             throw new BullshitException();
@@ -231,11 +257,19 @@ public class MainActivity extends AppCompatActivity {
         return mActivity;
     }
 
-    public void setRestaurants(JSONObject object) throws BullshitException {
+    public void setRestaurants(JSONObject object) throws BullshitException, JSONException {
         mObject = object;
-        Gson gson = new Gson();
-        gson.fromJson()
-        apiCall(DeliveryHelper.MAKE_PAYMENT);
+        Gson gson = new GsonBuilder().create();
+        //ArrayList<ArrayList<String>> list = gson.fromJson(object.toString(), new TypeToken<ArrayList<ArrayList<String>>>() {}.getType());
+        JSONArray arr = mObject.getJSONArray("merchants");
+
+        JSONObject o = (JSONObject) arr.get((int)(Math.random() * arr.length()));
+        String id = (String)o.get("id");
+        mMerchant = id;
+
+        Toast.makeText(MainActivity.this, "Data receieved!", Toast.LENGTH_SHORT).show();
+        //gson.fromJson()
+        apiCall(DeliveryHelper.GET_MENU);
     }
 
 }

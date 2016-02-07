@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jabbic.troy.foodapp.MainActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +32,7 @@ import java.util.Map;
 public class DeliveryHelper {
 
     public static final int GET_ITEMS = 0;
-    public static final int MAKE_PAYMENT = 1;
+    public static final int GET_MENU = 1;
 
     private static final String CLIENT_ID = "ODhiM2RmMWU1Mjg3MzA0YjYxNjE5OWNhYjk4ZjhmZTNh";
     private  static final String CLIENT_ID2 = "YjU3ZTliNjY4YmU5NDY0YzIyZWMyMGM1Y2NhZTMxYTk4";
@@ -50,7 +51,8 @@ public class DeliveryHelper {
     final static String LOCATION_URL = "customer/location";
     final static String ORDER_URL = "customer/orders/recent";
     final static String SEARCH_URL = "merchant/search/delivery";
-    final static String SEARCH_ADDRESS = "235 Park Ave S 10003";
+    final static String MERCHANT_URL = "merchant/";
+    final static String SEARCH_ADDRESS = "3 Little Ct 07092";
     final static String ADDRESS_APT = "";
     final static String ORDER_TYPE = "delivery";
 
@@ -117,7 +119,7 @@ public class DeliveryHelper {
         params.put("address",SEARCH_ADDRESS);
         //params.put("merchant_type", "R");
 
-        String finalURL = host + SEARCH_URL + "?client_id=" +CLIENT_ID2+"&method=delivery&address=" +SEARCH_ADDRESS;
+        String finalURL = host + SEARCH_URL + "?client_id=" +CLIENT_ID2+"&method=delivery&address=" +SEARCH_ADDRESS +"&merchant_type=R";
 
 
 
@@ -127,9 +129,15 @@ public class DeliveryHelper {
                     public void onResponse(JSONObject response) {
                         try {
                             VolleyLog.v("Response:%n %s", response.toString(4));
+                            //JSONArray array = response.names();
+                            //Object o = response.get("merchants");
+
                             //Toast.makeText(MainActivity.getInstance(), response.toString(), Toast.LENGTH_SHORT).show();
                             Log.e("JSON", "success! response: " + response.toString());
+                            ((MainActivity)MainActivity.getInstance()).setRestaurants(response);
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (BullshitException e) {
                             e.printStackTrace();
                         }
                     }
@@ -147,7 +155,44 @@ public class DeliveryHelper {
         mQueue.add(req);
     }
 
-    public void makeTransaction() {
+    public void getMenu() {
+        String merchant = ((MainActivity)MainActivity.getInstance()).mMerchant;
+
+        String finalURL = host + MERCHANT_URL +merchant + "/menu" + "?client_id=" +CLIENT_ID2+"&merchant_id=" +Integer.parseInt(merchant)
+                +"&item_only=1&hide_unavailable=1";
+
+
+
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,finalURL , null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            VolleyLog.v("Response:%n %s", response.toString(4));
+                            //JSONArray array = response.names();
+                            //Object o = response.get("merchants");
+
+                            //Toast.makeText(MainActivity.getInstance(), response.toString(), Toast.LENGTH_SHORT).show();
+                            Log.e("JSON", "successful menu grab! response: " + response.toString());
+                            ((MainActivity)MainActivity.getInstance()).setRestaurants(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (BullshitException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+                Toast.makeText(MainActivity.getInstance(), "Error retrieving JSON", Toast.LENGTH_SHORT).show();
+            }
+        });
+        req.setRetryPolicy(new DefaultRetryPolicy(
+                100000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+        mQueue.add(req);
     }
 
     private void constructRequest() {
