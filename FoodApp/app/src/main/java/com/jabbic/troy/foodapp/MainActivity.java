@@ -1,5 +1,6 @@
 package com.jabbic.troy.foodapp;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -20,14 +21,19 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.jabbic.troy.foodapp.utilities.BullshitException;
 import com.jabbic.troy.foodapp.utilities.DeliveryHelper;
+
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
     public Fragment mFragment;
     public Menu mMenu;
     public RequestQueue mQueue;
+    public static Activity mActivity;
+    public JSONObject mObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         DeliveryHelper helper = DeliveryHelper.getInstance();
         mQueue = Volley.newRequestQueue(this);
         helper.mQueue = mQueue;
+
+        mActivity = this;
     }
 
     @Override
@@ -217,6 +225,17 @@ public class MainActivity extends AppCompatActivity {
         }
         else
             throw new BullshitException();
+    }
+
+    public static Activity getInstance() {
+        return mActivity;
+    }
+
+    public void setRestaurants(JSONObject object) throws BullshitException {
+        mObject = object;
+        Gson gson = new Gson();
+        gson.fromJson()
+        apiCall(DeliveryHelper.MAKE_PAYMENT);
     }
 
 }

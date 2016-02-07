@@ -22,6 +22,8 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     //compile files('libs/jersey-bundle-1.18.jar')
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+
 }
 
 android {

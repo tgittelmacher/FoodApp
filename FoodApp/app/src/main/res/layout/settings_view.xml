@@ -90,22 +90,33 @@
 
     </ScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ScrollView01">
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
         android:layout_height="wrap_content"
         android:text="Save"
         android:id="@+id/settings_save"
-        android:layout_below="@id/ScrollView01"
         android:onClick="SaveInfo"
+        android:background="@color/primary_dark_material_dark"
+        android:textColor="@color/primary_material_light"
+        android:layout_marginRight="10dp"
         />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
         android:layout_height="wrap_content"
         android:text="Back"
         android:id="@+id/settings_back"
         android:layout_toRightOf="@id/settings_save"
         android:layout_alignTop="@id/settings_save"
         android:onClick="makeMainScreenFragment"
+        android:background="@color/primary_dark_material_dark"
+        android:textColor="@color/primary_material_light"
         />
+    </LinearLayout>
 </RelativeLayout>

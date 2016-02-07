@@ -46,21 +46,35 @@
         </SeekBar>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number_of_people"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="300dp">
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
         android:layout_height="wrap_content"
         android:id="@+id/order_confirm"
         android:layout_alignParentBottom="true"
         android:text="Next"
-        android:onClick="makeConfirmFragment"/>
+        android:onClick="makeConfirmFragment"
+        android:background="@color/primary_dark_material_dark"
+        android:textColor="@color/primary_material_light"
+        android:layout_marginRight="10dp"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
         android:layout_height="wrap_content"
         android:id="@+id/order_cancel"
         android:layout_alignParentBottom="true"
         android:text="Cancel"
         android:onClick="makeMainScreenFragment"
-        android:layout_toRightOf="@id/order_confirm"/>
+        android:layout_toRightOf="@id/order_confirm"
+        android:background="@color/primary_dark_material_dark"
+        android:textColor="@color/primary_material_light"/>
+    </LinearLayout>
 
 </RelativeLayout>
