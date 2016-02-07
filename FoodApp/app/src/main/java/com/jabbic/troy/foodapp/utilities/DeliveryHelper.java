@@ -1,20 +1,25 @@
 package com.jabbic.troy.foodapp.utilities;
 
+import android.app.Activity;
 import android.widget.Toast;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.jabbic.troy.foodapp.MainActivity;
 
-import net.sf.json.JSONObject;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Troy on 2/6/2016.
  */
 public class DeliveryHelper {
+
+    public static final int GET_ITEMS = 0;
+    public static final int MAKE_PAYMENT = 1;
 
     private static final String CLIENT_ID = "ODhiM2RmMWU1Mjg3MzA0YjYxNjE5OWNhYjk4ZjhmZTNh";
     private static final String CLIENT_SECRET = "aZun6EfU15Qpnc0fy8vhPUuS6R7s1ZGB9B9P0GWY";
@@ -35,6 +40,10 @@ public class DeliveryHelper {
     final static String ADDRESS_APT = "";
     final static String ORDER_TYPE = "delivery";
 
+
+    public RequestQueue mQueue;
+    private Activity mActivity;
+
     //CANONICAL SINGLETON
     private static DeliveryHelper instance;
 
@@ -54,48 +63,17 @@ public class DeliveryHelper {
     /*
     API CALL FACADE METHODS BELOW
      */
-
-    public String getDatAccess() {
-        return getGuestToken(CLIENT_ID);
+//    @GET(host + SEARCH_URL + '/<param1>/<param2>')
+    public void findRestaurants() {
+//        StringBuilder
     }
 
-    private static String getAccessToken(String code, String clientId, String clientSecret, String redirectURI)
-    {
-        String url = "http://sandbox.delivery.com/api/third_party/access_token";
-        WebResource resource = Client.create().
-                resource(
-                        UriBuilder.fromUri(url).clone().build().toASCIIString()
-                );
-
-        JSONObject postData = new JSONObject();
-        postData.put("client_id", clientId);
-        postData.put("client_secret", clientSecret);
-        postData.put("redirect_uri", redirectURI);
-        postData.put("grant_type", "authorization_code");
-        postData.put("code", code);
-
-        ClientResponse resi = resource.accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON).post(ClientResponse.class, postData.toString());
-        if (resi.getStatus() == ClientResponse.Status.OK.getStatusCode())
-        {
-            return JSONObject.fromObject(resi.getEntity(String.class)).getString("access_token");
-        } else
-        {
-            String rs = resi.getEntity(String.class);
-            throw new RuntimeException(JSONObject.fromObject(rs).getString("error_description"));
-        }
+    public void makeTransaction() {
     }
-    private static String getGuestToken(String clientId)
-    {
-        WebResource resource = Client.create().resource(UriBuilder.fromUri(host + GUEST_TOKEN_URL).queryParam("client_id", clientId).clone().build().toASCIIString());
-        ClientResponse res = resource.type(MediaType.APPLICATION_JSON).get(ClientResponse.class);
 
-        if (res.getStatus() == ClientResponse.Status.OK.getStatusCode())
-        {
-            String token = res.getEntity(String.class);
-            return JSONObject.fromObject(token).getString("Guest-Token");
-        } else
-        {
-            throw new RuntimeException(JSONObject.fromObject(res.getEntity(String.class)).getJSONArray("message").getJSONObject(0).getString("code"));
-        }
+    private void constructRequest() {
+
     }
+
+
 }

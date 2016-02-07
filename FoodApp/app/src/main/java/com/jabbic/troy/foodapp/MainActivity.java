@@ -18,10 +18,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.jabbic.troy.foodapp.utilities.BullshitException;
+import com.jabbic.troy.foodapp.utilities.DeliveryHelper;
+
 public class MainActivity extends AppCompatActivity {
 
     public Fragment mFragment;
     public Menu mMenu;
+    public RequestQueue mQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
                     .add(R.id.container, mFragment, "MAIN")
                     .commit();
         }
+
+        DeliveryHelper helper = DeliveryHelper.getInstance();
+        mQueue = Volley.newRequestQueue(this);
+        helper.mQueue = mQueue;
     }
 
     @Override
@@ -112,14 +122,21 @@ public class MainActivity extends AppCompatActivity {
         mFragment = new NewOrderFragment();
         swapFragment("NEWORDER");
 
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                DeliveryHelper helper = DeliveryHelper.getInstance();
+//                Toast.makeText(MainActivity.this, helper.getDatAccess(), Toast.LENGTH_SHORT).show();
+//            }
+//        }).start();
         setTitle("New Order");
         mMenu.clear();
     }
 
-    public void makeConfirmFragment(View view) {
+    public void makeConfirmFragment(View view) throws BullshitException {
         mFragment = new ConfirmFragment();
         swapFragment("CONFIRM");
-
+        apiCall(DeliveryHelper.GET_ITEMS);
         setTitle("Confirm Order");
         mMenu.clear();
     }
@@ -186,6 +203,20 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "Settings Saved.", Toast.LENGTH_SHORT).show();
         makeMainScreenFragment(null);
 
+    }
+
+    private void apiCall(int keyCode) throws BullshitException {
+        DeliveryHelper helper = DeliveryHelper.getInstance();
+        if (keyCode == 0) {
+            //GET RESTAURANTS, ETC
+            helper.findRestaurants();
+        }
+        else if (keyCode == 1) {
+           //CREDIT CARD PAYMENT
+            helper.makeTransaction();
+        }
+        else
+            throw new BullshitException();
     }
 
 }

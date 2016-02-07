@@ -1,4 +1,28 @@
 apply plugin: 'com.android.application'
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+}
+
+//buildscript {
+//    repositories {
+//        maven {
+//            url 'http://repo1.maven.org/maven2'
+//        }
+//    }
+//    dependencies {
+//        classpath 'com.android.tools.build:gradle:1.5'
+//    }
+//}
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:design:22.2.1'
+    //compile files('libs/jersey-bundle-1.18.jar')
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+}
 
 android {
     compileSdkVersion 22
@@ -17,12 +41,4 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
-
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
-    compile files('libs/jersey-bundle-1.18.jar')
 }
